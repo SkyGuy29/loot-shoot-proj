@@ -1,20 +1,66 @@
-// loot shoot proj.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+#include <SFML/Graphics.hpp>
+#include <math.h>
 #include <iostream>
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!");
+    sf::CircleShape shape(50.f);
+    sf::RectangleShape gunLine(sf::Vector2f(75, 10));
+    const float numbahX = window.getSize().x / 2.0, numbahY = window.getSize().y / 2.0;
+    shape.setFillColor(sf::Color::Cyan);
+    shape.setOrigin(50, 50);
+    shape.setPosition(window.getSize().x / 2, window.getSize().y / 2);
+    gunLine.setFillColor(sf::Color::Cyan);
+    gunLine.setOrigin(0, 5);
+    gunLine.setPosition(window.getSize().x / 2, window.getSize().y / 2);
+
+    window.setFramerateLimit(60);
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        /*
+        if (sf::Mouse::getPosition(window).x > 640)
+        {
+            gunLine.setRotation((atan((sf::Mouse::getPosition(window).y - 360.0) / (sf::Mouse::getPosition(window).x - 640.0))) * 45 / atan(1));
+        }
+        else if (sf::Mouse::getPosition(window).x < 640)
+        {
+            gunLine.setRotation((atan((sf::Mouse::getPosition(window).y - 360.0) / (sf::Mouse::getPosition(window).x - 640.0))) * 45 / atan(1) + 180);
+        }
+        */
+        if (sf::Mouse::getPosition(window).x > 640)
+        {
+            gunLine.setRotation((atan((sf::Mouse::getPosition(window).y - numbahY) 
+                / (sf::Mouse::getPosition(window).x - numbahX))) * 45 / atan(1));
+        }
+        else if (sf::Mouse::getPosition(window).x < 640)
+        {
+            gunLine.setRotation(atan((sf::Mouse::getPosition(window).y - numbahY)
+                / (sf::Mouse::getPosition(window).x - numbahX)) * 45 / atan(1) + 180);
+        }
+        else if (sf::Mouse::getPosition(window).x == 640 && sf::Mouse::getPosition(window).y > 360)
+        {
+            gunLine.setRotation(90);
+        }
+        else if (sf::Mouse::getPosition(window).x == 640 && sf::Mouse::getPosition(window).y < 360)
+        {
+            gunLine.setRotation(270);
+        }
+
+        window.clear();
+        window.draw(shape);
+        window.draw(gunLine);
+        window.display();
+    }
+
+    return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
