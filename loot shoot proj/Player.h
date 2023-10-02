@@ -1,14 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "CollisionCirc.h"
+#include "Bullet.h"
+#include <vector>
 
 
-class Player : public sf::CircleShape
+class Player : public CollisionCirc
 {
 public:
 	Player(sf::RenderWindow&);
 	~Player();
-	bool isTouching(sf::RectangleShape);
-	bool isTouching(sf::CircleShape);
 	void shoot();
 	void spin(sf::RenderWindow&);
 	void move();
@@ -16,7 +17,6 @@ public:
 private:
 	sf::RectangleShape gunLine;
 	//gun numbah to determine what gun, comes later tho
-	//bullet object
-	int xPos = 0, yPos = 0;
+	std::vector<Bullet> bullets;
 };
 
