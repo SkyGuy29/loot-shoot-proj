@@ -12,6 +12,7 @@ public:
 	~Player();
 	void shoot();
 	void spin(sf::RenderWindow&);
+	void bulletUpdate();
 	void move();
 	void draw(sf::RenderWindow&);
 private:

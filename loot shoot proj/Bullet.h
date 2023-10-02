@@ -8,7 +8,9 @@ public:
 	Bullet();
 	~Bullet();
 	void move();
+	void setRise(float);
+	void setRun(float);
 private:
-	int rise = 0, run = 0;
+	float rise = 0, run = 0;
 };
 

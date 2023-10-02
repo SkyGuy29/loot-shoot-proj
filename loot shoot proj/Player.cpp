@@ -22,7 +22,17 @@ void Player::shoot()
 {
     Bullet newBullet;
 
+    newBullet.setRise(5 * sin(gunLine.getRotation() * atan(1) / 45));
+    newBullet.setRun(5 * cos(gunLine.getRotation() * atan(1) / 45));
 
+    //offsets the bullet to the front of the gun instead of firing from the
+    //center of the player, purely for visual effect
+    for (int i = 0; i < 6; i++)
+    {
+        newBullet.move();
+    }
+
+    bullets.push_back(newBullet);
 }
 
 void Player::spin(sf::RenderWindow& window)
@@ -58,6 +68,14 @@ void Player::spin(sf::RenderWindow& window)
     }
 }
 
+void Player::bulletUpdate()
+{
+    for (int i = 0; i < bullets.size(); i++)
+    {
+        bullets.at(i).move();
+    }
+}
+
 void Player::move()
 {
 
@@ -66,5 +84,8 @@ void Player::move()
 void Player::draw(sf::RenderWindow& window)
 {
     window.draw(gunLine);
-    //draw the bullets too once that is coded
+    for (int i = 0; i < bullets.size(); i++)
+    {
+        window.draw(bullets.at(i));
+    }
 }

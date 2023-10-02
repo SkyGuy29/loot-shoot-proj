@@ -6,7 +6,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Gun Game Test");
     Player player(window);
 
     window.setFramerateLimit(60);
@@ -20,8 +20,14 @@ int main()
                 window.close();
         }
 
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            player.shoot();
+        }
+
         player.spin(window);
-        
+        player.bulletUpdate();
+
         window.clear();
         window.draw(player);
         player.draw(window);
