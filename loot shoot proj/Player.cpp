@@ -25,10 +25,10 @@ bool Player::isTouching(sf::RectangleShape rect)
     //return true.
     //i am deeply sorry for my awful line indenting, but this is absolutly unreadable otherwise.
     //this makes it at least barely managable.
-    if ((atan(abs(rect.getGlobalBounds().top - getOrigin().y) / abs(rect.getGlobalBounds().left - getOrigin().x)) < getRadius()
-            || atan(abs(rect.getGlobalBounds().top - getOrigin().y) / abs(rect.getGlobalBounds().left + rect.getGlobalBounds().width - getOrigin().x)) < getRadius() 
-            || atan(abs(rect.getGlobalBounds().top + rect.getGlobalBounds().height - getOrigin().y) / abs(rect.getGlobalBounds().left - getOrigin().x)) < getRadius() 
-            || atan(abs(rect.getGlobalBounds().top + rect.getGlobalBounds().height - getOrigin().y) / abs(rect.getGlobalBounds().left + rect.getGlobalBounds().width - getOrigin().x)) < getRadius())
+    if ((sqrt(pow(rect.getGlobalBounds().top - getOrigin().y, 2) + pow(rect.getGlobalBounds().left - getOrigin().x, 2)) < getRadius()
+            || sqrt(pow(rect.getGlobalBounds().top - getOrigin().y, 2) + pow(rect.getGlobalBounds().left + rect.getGlobalBounds().width - getOrigin().x, 2)) < getRadius() 
+            || sqrt(pow(rect.getGlobalBounds().top + rect.getGlobalBounds().height - getOrigin().y, 2) + pow(rect.getGlobalBounds().left - getOrigin().x, 2)) < getRadius() 
+            || sqrt(pow(rect.getGlobalBounds().top + rect.getGlobalBounds().height - getOrigin().y, 2) + pow(rect.getGlobalBounds().left + rect.getGlobalBounds().width - getOrigin().x, 2)) < getRadius())
         || (getOrigin().x - getRadius() > rect.getGlobalBounds().left
             && getOrigin().x - getRadius() < rect.getGlobalBounds().left + rect.getGlobalBounds().width
             && getOrigin().y > rect.getGlobalBounds().top
