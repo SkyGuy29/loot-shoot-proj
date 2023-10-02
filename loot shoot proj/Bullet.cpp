@@ -2,7 +2,7 @@
 
 Bullet::Bullet()
 {
-	setRadius(5.f);
+	setRadius(8.f);
 	setFillColor(sf::Color::Cyan);
 	setOrigin(getRadius(), getRadius());
 	setPosition(640, 360); //this is temp

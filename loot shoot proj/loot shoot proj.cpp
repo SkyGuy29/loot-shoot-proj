@@ -7,6 +7,7 @@
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Gun Game Test");
+    sf::Clock clock;
     Player player(window);
 
     window.setFramerateLimit(60);
@@ -20,9 +21,10 @@ int main()
                 window.close();
         }
 
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && clock.getElapsedTime().asMilliseconds() >= 50)
         {
             player.shoot();
+            clock.restart();
         }
 
         player.spin(window);

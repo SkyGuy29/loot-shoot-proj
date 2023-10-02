@@ -74,6 +74,8 @@ void Player::bulletUpdate()
     {
         bullets.at(i).move();
     }
+
+    //get rid of bad ones
 }
 
 void Player::move()
@@ -88,4 +90,28 @@ void Player::draw(sf::RenderWindow& window)
     {
         window.draw(bullets.at(i));
     }
+}
+
+bool Player::bulletCollision(sf::RectangleShape rect)
+{
+    for (int i = 0; i < bullets.size(); i++)
+    {
+        if (bullets.at(i).isTouching(rect))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Player::bulletCollision(sf::CircleShape rect)
+{
+    for (int i = 0; i < bullets.size(); i++)
+    {
+        if (bullets.at(i).isTouching(rect))
+        {
+            return true;
+        }
+    }
+    return false;
 }

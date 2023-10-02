@@ -15,6 +15,9 @@ public:
 	void bulletUpdate();
 	void move();
 	void draw(sf::RenderWindow&);
+
+	bool bulletCollision(sf::RectangleShape);
+	bool bulletCollision(sf::CircleShape);
 private:
 	sf::RectangleShape gunLine;
 	//gun numbah to determine what gun, comes later tho
