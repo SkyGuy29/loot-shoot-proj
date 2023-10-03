@@ -8,6 +8,6 @@ public:
 	bool isTouching(sf::RectangleShape);
 	bool isTouching(sf::CircleShape);
 protected:
-	int xPos = 0, yPos = 0;
+	sf::Vector2f pos;
 };
 

@@ -11,6 +11,6 @@ public:
 	void setRise(float);
 	void setRun(float);
 private:
+	bool active = true;
 	float rise = 0, run = 0;
 };
-

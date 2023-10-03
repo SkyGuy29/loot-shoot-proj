@@ -37,14 +37,9 @@ void Player::shoot()
 
 void Player::spin(sf::RenderWindow& window)
 {
-    //SFML is bugged apperantly so i cant do 
-    //sf::Mouse::getPosition(window).x - window.getSize().x / 2.0
-    //for some reason
     const float numX = window.getSize().x / 2.0, 
         numY = window.getSize().y / 2.0;
 
-    //ima be honest real quick i do not understand why this works
-    //but it does so idc lol
     if (sf::Mouse::getPosition(window).x > 640)
     {
         gunLine.setRotation((atan((sf::Mouse::getPosition(window).y - numY)
@@ -74,13 +69,11 @@ void Player::bulletUpdate()
     {
         bullets.at(i).move();
     }
-
-    //get rid of bad ones
 }
 
 void Player::move()
 {
-
+    //if(hypot())
 }
 
 void Player::draw(sf::RenderWindow& window)
@@ -103,12 +96,11 @@ bool Player::bulletCollision(sf::RectangleShape rect)
     }
     return false;
 }
-
-bool Player::bulletCollision(sf::CircleShape rect)
+bool Player::bulletCollision(sf::CircleShape circ)
 {
     for (int i = 0; i < bullets.size(); i++)
     {
-        if (bullets.at(i).isTouching(rect))
+        if (bullets.at(i).isTouching(circ))
         {
             return true;
         }

@@ -15,8 +15,8 @@ Bullet::~Bullet()
 
 void Bullet::move()
 {
-	yPos += rise;
-	xPos += run;
+	pos.x += rise;
+	pos.y += run;
 	setPosition(getPosition().x + run, getPosition().y + rise);
 }
 
