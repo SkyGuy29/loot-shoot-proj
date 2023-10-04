@@ -1,11 +1,13 @@
 #include "Bullet.h"
+#include "Player.h"
 
-Bullet::Bullet()
+Bullet::Bullet(float startX, float startY)
 {
 	setRadius(8.f);
 	setFillColor(sf::Color::Cyan);
 	setOrigin(getRadius(), getRadius());
-	setPosition(640, 360); //this is temp
+	setPosition(startX, startY); //this is temp
+	pos = getPosition();
 }
 
 Bullet::~Bullet()
@@ -15,9 +17,9 @@ Bullet::~Bullet()
 
 void Bullet::move()
 {
-	pos.x += rise;
-	pos.y += run;
-	setPosition(getPosition().x + run, getPosition().y + rise);
+	pos.x += run;
+	pos.y += rise;
+	setPosition(pos.x + run, pos.y + rise);
 }
 
 void Bullet::setRise(float newRise)

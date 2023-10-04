@@ -5,7 +5,7 @@
 class Bullet : public CollisionCirc
 {
 public:
-	Bullet();
+	Bullet(float, float);
 	~Bullet();
 	void move();
 	void setRise(float);

@@ -10,6 +10,10 @@ class Player : public CollisionCirc
 public:
 	Player(sf::RenderWindow&);
 	~Player();
+	//returns the player's x value, not the same as its position on the screen
+	float getPosX();
+	//returns the player's y value, not the same as its position on the screen
+	float getPosY();
 	//creates a new bullet, gives it a direction to go, and adds it to the vector
 	void shoot();
 	//rotates the player to face the cursor. needs to be called repeatedly to
