@@ -48,18 +48,19 @@ void Player::shoot()
 
 void Player::spin(sf::RenderWindow& window)
 {
-    const float numX = window.getSize().x / 2.0, 
-        numY = window.getSize().y / 2.0;
+    sf::Vector2f num;
+    num.x = window.getSize().x / 2.0, 
+    num.y = window.getSize().y / 2.0;
 
     if (sf::Mouse::getPosition(window).x > 640)
     {
-        gunLine.setRotation((atan((sf::Mouse::getPosition(window).y - numY)
-            / (sf::Mouse::getPosition(window).x - numX))) * 45 / atan(1));
+        gunLine.setRotation((atan((sf::Mouse::getPosition(window).y - num.y)
+            / (sf::Mouse::getPosition(window).x - num.x))) * 45 / atan(1));
     }
     else if (sf::Mouse::getPosition(window).x < 640)
     {
-        gunLine.setRotation(atan((sf::Mouse::getPosition(window).y - numY)
-            / (sf::Mouse::getPosition(window).x - numX)) * 45 / atan(1) + 180);
+        gunLine.setRotation(atan((sf::Mouse::getPosition(window).y - num.y)
+            / (sf::Mouse::getPosition(window).x - num.x)) * 45 / atan(1) + 180);
     }
     //preventing division by 0
     else if (sf::Mouse::getPosition(window).x == 640 
@@ -126,17 +127,23 @@ void Player::move()
 
     if(abs(hypot(accel.x, accel.y)) > speed * 20 && accel.x != 0 && accel.y != 0)
     {
+        std::cout << speed * 20 << ' ' << accel.x << ' ' << accel.y << ' '
+            << accel.x / speed * 20
+            << std::endl;
         if (abs(accel.y) < abs(accel.x))
         {
-            accel.x = speed * 20 * cos(asin(accel.y / speed * 20));
+            accel.x = speed * 20 * cos(asin(accel.y / (speed * 20)));
         }
         else if (abs(accel.x) < abs(accel.y))
         {
-            accel.y = speed * 20 * cos(asin(accel.x / speed * 20));
+            accel.y = speed * 20 * cos(asin(accel.x / (speed * 20)));
         }
     }
 
-    std::cout << accel.x << ' ' << accel.y << std::endl;
+    std::cout << speed * 20 << ' ' << accel.x << ' ' << accel.y << ' '
+        << accel.x / speed * 20
+        << std::endl;
+    //std::cout << accel.x << ' ' << accel.y << std::endl;
     pos += accel;
 }
 
