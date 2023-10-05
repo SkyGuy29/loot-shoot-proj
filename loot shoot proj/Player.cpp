@@ -126,25 +126,13 @@ void Player::move()
 
     if(abs(hypot(accel.x, accel.y)) > speed * 20 && accel.x != 0 && accel.y != 0)
     {
-        if (accel.y < accel.x && accel.y < 0) //negative y values, north east/west
+        if (abs(accel.y) < abs(accel.x))
         {
-            //this has not been tweaked, do that pls
             accel.x = speed * 20 * cos(asin(accel.y / speed * 20));
         }
-        if (accel.y > accel.x && accel.y > 0) //positive y values, south east/west
+        else if (abs(accel.x) < abs(accel.y))
         {
-            //this has not been tweaked, do that pls
-            accel.x = speed * 20 * cos(asin(accel.y / speed * 20));
-        }
-        if (accel.x < accel.y && accel.x < 0) //negative x values, north/south west
-        {
-            //this has not been tweaked, do that pls
-            accel.x = speed * 20 * cos(asin(accel.y / speed * 20));
-        }
-        if (accel.x > accel.y && accel.x > 0) //positive x values, north/south east
-        {
-            //this has not been tweaked, do that pls
-            accel.x = speed * 20 * cos(asin(accel.y / speed * 20));
+            accel.y = speed * 20 * cos(asin(accel.x / speed * 20));
         }
     }
 
