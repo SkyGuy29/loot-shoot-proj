@@ -31,6 +31,7 @@ public:
 	bool bulletCollision(sf::RectangleShape);
 	bool bulletCollision(sf::CircleShape);
 private:
+	sf::Vector2f accel;
 	sf::RectangleShape gunLine;
 	//gun numb to determine what gun, comes later tho
 	std::vector<Bullet> bullets;

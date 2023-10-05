@@ -10,6 +10,7 @@ int main()
     sf::Clock clock;
     sf::Texture bgTexture;
     sf::Sprite background;
+    sf::CircleShape circ;
     Player player(window);
 
     window.setFramerateLimit(60);
@@ -17,6 +18,8 @@ int main()
     bgTexture.loadFromFile("background.png");
     background.setTexture(bgTexture);
     background.setOrigin(background.getLocalBounds().width / 2, background.getLocalBounds().height / 2);
+
+    circ.setRadius(100);
 
     while (window.isOpen())
     {
@@ -40,9 +43,11 @@ int main()
 
         background.setPosition(window.getSize().x / 2 - player.getPosX(), 
             window.getSize().y / 2 - player.getPosY());
+        circ.setPosition(background.getPosition());
 
         window.clear();
         window.draw(background);
+        window.draw(circ);
         window.draw(player);
         player.draw(window);
         window.display();

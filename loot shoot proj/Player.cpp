@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <math.h>
+#include <iostream>
 
 Player::Player(sf::RenderWindow& window)
 {
@@ -85,37 +86,59 @@ void Player::bulletUpdate()
 
 void Player::move()
 {
-    const int speed = 5;
-    float xChange = 0, yChange = 0;
+    const float speed = 0.25;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && accel.y > speed * -20) 
     {
-        yChange -= speed;
+        accel.y -= speed;
+    }
+    else if (accel.y < 0)
+    {
+        accel.y += speed / 2;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && accel.x > speed * -20)
     {
-        xChange -= speed;
+        accel.x -= speed;
+    }
+    else if (accel.x < 0)
+    {
+        accel.x += speed / 2;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && accel.y < speed * 20)
     {
-        yChange += speed;
+        accel.y += speed;
+    }
+    else if (accel.y > 0)
+    {
+        accel.y -= speed / 2;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && accel.x < speed * 20)
     {
-        xChange += speed;
+        accel.x += speed;
+    }
+    else if (accel.x > 0)
+    {
+        accel.x -= speed / 2;
     }
 
-    if(abs(hypot(xChange, yChange)) > speed)
+    if(abs(hypot(accel.x, accel.y)) > speed * 20 && accel.x != 0 && accel.y != 0)
     {
-        yChange *= sqrt(2) / 2;
-        xChange *= sqrt(2) / 2;
+        if (accel.y < accel.x && accel.x != 0) //negative y values
+        {
+            accel.x = speed * 20 * cos(asin(accel.y / speed * 20));
+        }
+        else
+        {
+            accel.x = accel.y = speed * 10 * sqrt(2);
+        }
     }
 
-    pos.x += xChange;
-    pos.y += yChange;
+    std::cout << accel.x << ' ' << accel.y << std::endl;
+    pos += accel;
+
 }
 
 void Player::draw(sf::RenderWindow& window)
