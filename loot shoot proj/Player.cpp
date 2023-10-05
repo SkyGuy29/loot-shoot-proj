@@ -88,11 +88,11 @@ void Player::move()
 {
     const float speed = 0.25;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && accel.y > speed * -20) 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && accel.y > speed * -20)
     {
         accel.y -= speed;
     }
-    else if (accel.y < 0)
+    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W) && accel.y < 0)
     {
         accel.y += speed / 2;
     }
@@ -101,7 +101,7 @@ void Player::move()
     {
         accel.x -= speed;
     }
-    else if (accel.x < 0)
+    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A) && accel.x < 0)
     {
         accel.x += speed / 2;
     }
@@ -110,7 +110,7 @@ void Player::move()
     {
         accel.y += speed;
     }
-    else if (accel.y > 0)
+    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S) && accel.y > 0)
     {
         accel.y -= speed / 2;
     }
@@ -119,26 +119,37 @@ void Player::move()
     {
         accel.x += speed;
     }
-    else if (accel.x > 0)
+    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::D) && accel.x > 0)
     {
         accel.x -= speed / 2;
     }
 
     if(abs(hypot(accel.x, accel.y)) > speed * 20 && accel.x != 0 && accel.y != 0)
     {
-        if (accel.y < accel.x && accel.x != 0) //negative y values
+        if (accel.y < accel.x && accel.y < 0) //negative y values, north east/west
         {
+            //this has not been tweaked, do that pls
             accel.x = speed * 20 * cos(asin(accel.y / speed * 20));
         }
-        else
+        if (accel.y > accel.x && accel.y > 0) //positive y values, south east/west
         {
-            accel.x = accel.y = speed * 10 * sqrt(2);
+            //this has not been tweaked, do that pls
+            accel.x = speed * 20 * cos(asin(accel.y / speed * 20));
+        }
+        if (accel.x < accel.y && accel.x < 0) //negative x values, north/south west
+        {
+            //this has not been tweaked, do that pls
+            accel.x = speed * 20 * cos(asin(accel.y / speed * 20));
+        }
+        if (accel.x > accel.y && accel.x > 0) //positive x values, north/south east
+        {
+            //this has not been tweaked, do that pls
+            accel.x = speed * 20 * cos(asin(accel.y / speed * 20));
         }
     }
 
     std::cout << accel.x << ' ' << accel.y << std::endl;
     pos += accel;
-
 }
 
 void Player::draw(sf::RenderWindow& window)
