@@ -87,7 +87,8 @@ void Player::bulletUpdate()
 
 void Player::move()
 {
-    const float speed = 0.25;
+    const float speed = 0.5;
+    float neg = 0;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && accel.y > speed * -20)
     {
@@ -96,6 +97,10 @@ void Player::move()
     else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W) && accel.y < 0)
     {
         accel.y += speed / 2;
+        if (accel.y > 0)
+        {
+            accel.y = 0;
+        }
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && accel.x > speed * -20)
@@ -105,6 +110,10 @@ void Player::move()
     else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A) && accel.x < 0)
     {
         accel.x += speed / 2;
+        if (accel.x > 0)
+        {
+            accel.x = 0;
+        }
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && accel.y < speed * 20)
@@ -114,6 +123,10 @@ void Player::move()
     else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S) && accel.y > 0)
     {
         accel.y -= speed / 2;
+        if (accel.y < 0)
+        {
+            accel.y = 0;
+        }
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && accel.x < speed * 20)
@@ -123,27 +136,25 @@ void Player::move()
     else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::D) && accel.x > 0)
     {
         accel.x -= speed / 2;
+        if (accel.x < 0)
+        {         
+            accel.x = 0;
+        }
     }
 
     if(abs(hypot(accel.x, accel.y)) > speed * 20 && accel.x != 0 && accel.y != 0)
     {
-        std::cout << speed * 20 << ' ' << accel.x << ' ' << accel.y << ' '
-            << accel.x / speed * 20
-            << std::endl;
         if (abs(accel.y) < abs(accel.x))
         {
-            accel.x = speed * 20 * cos(asin(accel.y / (speed * 20)));
+            neg = accel.x / abs(accel.x); //this will be either 1 or -1, which will apply back in the next line 
+            accel.x = neg * speed * 20 * cos(asin(accel.y / (speed * 20)));
         }
         else if (abs(accel.x) < abs(accel.y))
         {
-            accel.y = speed * 20 * cos(asin(accel.x / (speed * 20)));
+            neg = accel.y / abs(accel.y);
+            accel.y = neg * speed * 20 * sin(acos(accel.x / (speed * 20))); 
         }
     }
-
-    std::cout << speed * 20 << ' ' << accel.x << ' ' << accel.y << ' '
-        << accel.x / speed * 20
-        << std::endl;
-    //std::cout << accel.x << ' ' << accel.y << std::endl;
     pos += accel;
 }
 
