@@ -1,11 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "CollisionCirc.h"
 #include "Bullet.h"
 #include <vector>
 
 
-class Player : public CollisionCirc
+class Player : public sf::CircleShape
 {
 public:
 	Player(sf::RenderWindow&);
@@ -22,7 +21,7 @@ public:
 	//performs updates to all of the bullets, including 
 	//moving and deleting them
 	void bulletUpdate();
-	//adjusts the player's location, which will offset everything
+	//adjusts the player's location based on acceleration, which will offset everything
 	//else's position on the screen
 	void move();
 	//draws private sfml members to the window
@@ -31,7 +30,7 @@ public:
 	bool bulletCollision(sf::RectangleShape);
 	bool bulletCollision(sf::CircleShape);
 private:
-	sf::Vector2f accel;
+	sf::Vector2f pos, accel;
 	sf::RectangleShape gunLine;
 	//gun numb to determine what gun, comes later tho
 	std::vector<Bullet> bullets;

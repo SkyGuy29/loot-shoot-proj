@@ -36,13 +36,16 @@ int main()
             clock.restart();
         }
 
-        player.move();
+        if (!player.getGlobalBounds().intersects(circ.getGlobalBounds()))
+        {
+            player.move();
+        }
 
         player.spin(window);
         player.bulletUpdate();
 
-        background.setPosition(window.getSize().x / 2 - player.getPosX(), 
-            window.getSize().y / 2 - player.getPosY());
+        background.setPosition(800 - player.getPosX(), 
+            400 - player.getPosY());
         circ.setPosition(background.getPosition());
 
         window.clear();

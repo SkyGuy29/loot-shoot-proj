@@ -171,7 +171,7 @@ bool Player::bulletCollision(sf::RectangleShape rect)
 {
     for (int i = 0; i < bullets.size(); i++)
     {
-        if (bullets.at(i).isTouching(rect))
+        if (bullets.at(i).getGlobalBounds().intersects(rect.getGlobalBounds()))
         {
             return true;
         }
@@ -182,7 +182,7 @@ bool Player::bulletCollision(sf::CircleShape circ)
 {
     for (int i = 0; i < bullets.size(); i++)
     {
-        if (bullets.at(i).isTouching(circ))
+        if (bullets.at(i).getGlobalBounds().intersects(circ.getGlobalBounds()))
         {
             return true;
         }

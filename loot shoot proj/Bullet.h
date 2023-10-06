@@ -1,8 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "CollisionCirc.h"
 
-class Bullet : public CollisionCirc
+class Bullet : public sf::CircleShape
 {
 public:
 	Bullet(float, float);
@@ -11,6 +10,7 @@ public:
 	void setRise(float);
 	void setRun(float);
 private:
+	sf::Vector2f pos;
 	bool active = true;
 	float rise = 0, run = 0;
 };
