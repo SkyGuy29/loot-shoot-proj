@@ -10,6 +10,33 @@ Bullet::Bullet(float startX, float startY)
 	pos = getPosition();
 }
 
+Bullet::Bullet(float startX, float startY, float rad)
+{
+	setRadius(rad);
+	setFillColor(sf::Color::Cyan);
+	setOrigin(getRadius(), getRadius());
+	setPosition(startX, startY); //this is temp
+	pos = getPosition();
+}
+
+Bullet::Bullet(float startX, float startY, sf::Color col)
+{
+	setRadius(8.f);
+	setFillColor(col);
+	setOrigin(getRadius(), getRadius());
+	setPosition(startX, startY); //this is temp
+	pos = getPosition();
+}
+
+Bullet::Bullet(float startX, float startY, float rad, sf::Color col)
+{
+	setRadius(rad);
+	setFillColor(col);
+	setOrigin(getRadius(), getRadius());
+	setPosition(startX, startY); //this is temp
+	pos = getPosition();
+}
+
 Bullet::~Bullet()
 {
 

@@ -2,16 +2,18 @@
 #include <math.h>
 #include <iostream>
 #include "Player.h"
+#include "Enemy.h"
 
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Gun Game Test");
-    sf::Clock clock;
+    sf::Clock pClock, eClock;
     sf::Texture bgTexture;
     sf::Sprite background;
     sf::CircleShape circ;
     Player player(window);
+    Enemy enemy(window);
 
     window.setFramerateLimit(60);
 
@@ -30,10 +32,16 @@ int main()
                 window.close();
         }
 
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && clock.getElapsedTime().asMilliseconds() >= 50)
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && pClock.getElapsedTime().asMilliseconds() >= 50)
         {
             player.shoot();
-            clock.restart();
+            pClock.restart();
+        }
+
+        if (eClock.getElapsedTime().asSeconds() >= 1)
+        {
+            enemy.shoot(player);
+            eClock.restart();
         }
 
         if (!player.getGlobalBounds().intersects(circ.getGlobalBounds()))
@@ -42,8 +50,11 @@ int main()
         }
 
         player.spin(window);
+        enemy.spin(player);
         player.bulletUpdate();
+        enemy.bulletUpdate(player);
 
+        enemy.posUpdate(0 - player.getPosX(), 0 - player.getPosY());
         background.setPosition(800 - player.getPosX(), 
             400 - player.getPosY());
         circ.setPosition(background.getPosition());
@@ -51,6 +62,8 @@ int main()
         window.clear();
         window.draw(background);
         window.draw(circ);
+        window.draw(enemy);
+        enemy.draw(window);
         window.draw(player);
         player.draw(window);
         window.display();
