@@ -59,6 +59,11 @@ int main()
             400 - player.getPosY());
         circ.setPosition(background.getPosition());
 
+        if (player.bulletCollision(enemy))
+        {
+            enemy.dmg(player.hitEnemy(enemy));
+        }
+
         window.clear();
         window.draw(background);
         window.draw(circ);

@@ -29,6 +29,8 @@ public:
 	//returns true if any bullet is colliding with something
 	bool bulletCollision(sf::RectangleShape);
 	bool bulletCollision(sf::CircleShape);
+	//returns the damage of the bullet that is coliding with the enemy
+	int hitEnemy(sf::CircleShape);
 private:
 	const float speed = 0.5;
 	sf::Vector2f pos, accel;

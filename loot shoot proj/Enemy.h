@@ -26,9 +26,9 @@ public:
 	//draws private sfml members to the window
 	void draw(sf::RenderWindow&);
 	//returns true if any bullet is colliding with something
-
 	bool bulletCollision(sf::RectangleShape);
 	bool bulletCollision(sf::CircleShape);
+	int getHealth();
 protected:
 	bool alive = true;
 	int health = 360;

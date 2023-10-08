@@ -138,7 +138,8 @@ void Enemy::move()
 
 void Enemy::shoot(Player player)
 {
-    Bullet newBullet(getPosition().x + player.getPosX(), getPosition().y + player.getPosY(), sf::Color::Red);
+    Bullet newBullet(120, getPosition().x + player.getPosX(), getPosition().y + player.getPosY());
+    newBullet.setFillColor(sf::Color::Red);
 
     newBullet.setRise(5 * sin(gunLine.getRotation() * atan(1) / 45));
     newBullet.setRun(5 * cos(gunLine.getRotation() * atan(1) / 45));
@@ -199,4 +200,9 @@ bool Enemy::bulletCollision(sf::CircleShape circ)
         }
     }
     return false;
+}
+
+int Enemy::getHealth()
+{
+    return health;
 }

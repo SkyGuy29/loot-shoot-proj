@@ -31,7 +31,7 @@ float Player::getPosY()
 
 void Player::shoot()
 {
-    Bullet newBullet(getPosition().x + pos.x, getPosition().y + pos.y);
+    Bullet newBullet(12, getPosition() + pos);
 
     newBullet.setRise(5 * sin(gunLine.getRotation() * atan(1) / 45));
     newBullet.setRun(5 * cos(gunLine.getRotation() * atan(1) / 45));
@@ -78,7 +78,7 @@ void Player::bulletUpdate()
         bullets.at(i).move();
         bullets.at(i).setPosition(bullets.at(i).getPosition().x 
             - pos.x, bullets.at(i).getPosition().y - pos.y);
-        if (bullets.at(i).clock.getElapsedTime().asMilliseconds() >= 2000)
+        if (!bullets.at(i).isActive() || bullets.at(i).clock.getElapsedTime().asMilliseconds() >= 2000)
         {
             std::vector<Bullet> temp;
             for (int j = 0; j < i; j++)
@@ -170,7 +170,8 @@ void Player::draw(sf::RenderWindow& window)
     window.draw(gunLine);
     for (int i = 0; i < bullets.size(); i++)
     {
-        window.draw(bullets.at(i));
+        if(bullets.at(i).isActive())
+            window.draw(bullets.at(i));
     }
 }
 
@@ -189,10 +190,23 @@ bool Player::bulletCollision(sf::CircleShape circ)
 {
     for (int i = 0; i < bullets.size(); i++)
     {
-        if (bullets.at(i).getGlobalBounds().intersects(circ.getGlobalBounds()))
+        if (bullets.at(i).isActive() && bullets.at(i).getGlobalBounds().intersects(circ.getGlobalBounds()))
         {
             return true;
         }
     }
     return false;
+}
+
+int Player::hitEnemy(sf::CircleShape enemy)
+{
+    for (int i = 0; i < bullets.size(); i++)
+    {
+        if (bullets.at(i).getGlobalBounds().intersects(enemy.getGlobalBounds()))
+        {
+            bullets.at(i).deactivate();
+            return bullets.at(i).getDamage();
+        }
+    }
+    return 0;
 }
