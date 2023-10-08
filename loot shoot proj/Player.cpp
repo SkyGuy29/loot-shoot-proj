@@ -48,26 +48,26 @@ void Player::shoot()
 
 void Player::spin(sf::RenderWindow& window)
 {
-    if (sf::Mouse::getPosition(window).x > getPosition().x)
+    sf::Vector2i flip;
+    if (sf::Mouse::getPosition(window).x < getPosition().x)
     {
-        gunLine.setRotation((atan((sf::Mouse::getPosition(window).y - getPosition().y)
-            / (sf::Mouse::getPosition(window).x - getPosition().x))) * 45 / atan(1));
+        flip.x = 180;
     }
-    else if (sf::Mouse::getPosition(window).x < getPosition().x)
+
+    if (sf::Mouse::getPosition(window).y < getPosition().y)
+    {
+        flip.y = 180;
+    }
+
+    if (sf::Mouse::getPosition(window).x != getPosition().x)
     {
         gunLine.setRotation(atan((sf::Mouse::getPosition(window).y - getPosition().y)
-            / (sf::Mouse::getPosition(window).x - getPosition().x)) * 45 / atan(1) + 180);
+            / (sf::Mouse::getPosition(window).x - getPosition().x)) * 45 / atan(1) + flip.x);
     }
     //preventing division by 0
-    else if (sf::Mouse::getPosition(window).x == getPosition().x
-        && sf::Mouse::getPosition(window).y > getPosition().y)
+    else
     {
-        gunLine.setRotation(90);
-    }
-    else if (sf::Mouse::getPosition(window).x == getPosition().x
-        && sf::Mouse::getPosition(window).y < getPosition().y)
-    {
-        gunLine.setRotation(270);
+        gunLine.setRotation(90 + flip.y);
     }
 }
 

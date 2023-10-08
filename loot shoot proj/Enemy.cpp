@@ -155,49 +155,26 @@ void Enemy::shoot(Player player)
 
 void Enemy::spin(Player player)
 {
-    /*
     sf::Vector2i flip;
-    if (player.getPosX() < pos.x)
+    if (player.getPosition().x < getPosition().x)
     {
         flip.x = 180;
     }
 
-    if (player.getPosY() < pos.y)
+    if (player.getPosition().y < getPosition().y)
     {
         flip.y = 180;
     }
 
-    if (player.getPosX() != pos.x)
+    if (player.getPosition().x != getPosition().x)
     {
-        gunLine.setRotation((atan((player.getPosY() - pos.y) /
-            (player.getPosX() - pos.x))) * 45 / atan(1) + flip.x);
+        gunLine.setRotation(atan((player.getPosition().y - getPosition().y)
+            / (player.getPosition().x - getPosition().x)) * 45 / atan(1) + flip.x);
     }
     //preventing division by 0
     else
     {
         gunLine.setRotation(90 + flip.y);
-    }
-    */
-    if (player.getPosition().x > getPosition().x)
-    {
-        gunLine.setRotation((atan((player.getPosition().y - getPosition().y)
-            / (player.getPosition().x - getPosition().x))) * 45 / atan(1));
-    }
-    else if (player.getPosition().x < getPosition().x)
-    {
-        gunLine.setRotation(atan((player.getPosition().y - getPosition().y)
-            / (player.getPosition().x - getPosition().x)) * 45 / atan(1) + 180);
-    }
-    //preventing division by 0
-    else if (player.getPosition().x == getPosition().x
-        && player.getPosition().y > getPosition().y)
-    {
-        gunLine.setRotation(90);
-    }
-    else if (player.getPosition().x == getPosition().x
-        && player.getPosition().y < getPosition().y)
-    {
-        gunLine.setRotation(270);
     }
 }
 
