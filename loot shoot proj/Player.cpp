@@ -196,33 +196,3 @@ bool Player::bulletCollision(sf::CircleShape circ)
     }
     return false;
 }
-
-/*
-//removes a value from vec at position
-void erase(std::vector<double>& vec, int position)
-{
-    std::vector<double> temp;
-    for (int i = 0; i < position; i++)
-        temp.push_back(vec.at(i));
-    for (int i = position + 1; i < vec.size(); i++)
-        temp.push_back(vec.at(i));
-    while (!vec.empty())
-    vec.pop_back();
-    for (int i = 0; i < temp.size(); i++)
-        vec.push_back(temp.at(i));
-}
-//adds a value (newNum) to vec at position
-void insert(std::vector<double>& vec, double newNum, int position)
-{
-    std::vector<double> temp;
-    for (int i = 0; i < position; i++)
-        temp.push_back(vec.at(i));
-    temp.push_back(newNum);
-    for (int i = position; i < vec.size(); i++)
-        temp.push_back(vec.at(i));
-    while (!vec.empty())
-    vec.pop_back();
-    for (int i = 0; i < temp.size(); i++)
-        vec.push_back(temp.at(i));
-}
-*/

@@ -27,13 +27,12 @@ public:
 	//draws private sfml members to the window
 	void draw(sf::RenderWindow&);
 	//returns true if any bullet is colliding with something
-
 	bool bulletCollision(sf::RectangleShape);
 	bool bulletCollision(sf::CircleShape);
 private:
 	const float speed = 0.5;
 	sf::Vector2f pos, accel;
 	sf::RectangleShape gunLine;
-	//gun numb to determine what gun, comes later tho
+	//gun enum to determine what gun, comes later tho
 	std::vector<Bullet> bullets;
 };
