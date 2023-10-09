@@ -18,6 +18,16 @@ Enemy::~Enemy()
 
 }
 
+int Enemy::getHealth()
+{
+    return health;
+}
+
+bool Enemy::isAlive()
+{
+    return alive;
+}
+
 void Enemy::bulletUpdate(Player player)
 {
     for (int i = 0; i < bullets.size(); i++)
@@ -202,7 +212,19 @@ bool Enemy::bulletCollision(sf::CircleShape circ)
     return false;
 }
 
-int Enemy::getHealth()
+void Enemy::deathAnim()
 {
-    return health;
+    if (deathAccel < 60)
+    {
+        gunLine.rotate(deathAccel++);
+    }
+}
+
+bool Enemy::isDead()
+{
+    if (deathAccel >= 60)
+    {
+        return true;
+    }
+    return false;
 }

@@ -38,7 +38,7 @@ int main()
             pClock.restart();
         }
 
-        if (eClock.getElapsedTime().asSeconds() >= 1)
+        if (enemy.isAlive() && eClock.getElapsedTime().asSeconds() >= 1)
         {
             enemy.shoot(player);
             eClock.restart();
@@ -50,7 +50,14 @@ int main()
         }
 
         player.spin(window);
-        enemy.spin(player);
+        if (enemy.isAlive())
+        {
+            enemy.spin(player);
+        }
+        else
+        {
+            enemy.deathAnim();
+        }
         player.bulletUpdate();
         enemy.bulletUpdate(player);
 
@@ -59,7 +66,7 @@ int main()
             400 - player.getPosY());
         circ.setPosition(background.getPosition());
 
-        if (player.bulletCollision(enemy))
+        if (!enemy.isDead() && player.bulletCollision(enemy))
         {
             enemy.dmg(player.hitEnemy(enemy));
         }
@@ -67,8 +74,11 @@ int main()
         window.clear();
         window.draw(background);
         window.draw(circ);
-        window.draw(enemy);
-        enemy.draw(window);
+        if (!enemy.isDead())
+        {
+            window.draw(enemy);
+            enemy.draw(window);
+        }
         window.draw(player);
         player.draw(window);
         window.display();
