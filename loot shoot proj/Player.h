@@ -31,6 +31,8 @@ public:
 	bool bulletCollision(sf::CircleShape);
 	//returns the damage of the bullet that is coliding with the enemy
 	int hitEnemy(sf::CircleShape);
+	//makes boing
+	bool wallBounce(sf::RectangleShape);
 private:
 	const float speed = 0.5;
 	sf::Vector2f pos, accel;
