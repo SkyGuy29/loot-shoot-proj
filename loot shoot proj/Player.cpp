@@ -93,7 +93,47 @@ void Player::bulletUpdate()
     }
 }
 
-void Player::move()
+//checks if a point is within the boundaries of a rectangle
+bool isWithin(sf::FloatRect rect, sf::Vector2f point)
+{
+    if (point.x > rect.left && point.x < rect.left + rect.width
+        && point.y > rect.top && point.y < rect.top + rect.height)
+    {
+        return true;
+    }
+    return false;
+}
+
+//bounces the player off of a wall if they hit it
+void Player::wallBounce(sf::FloatRect rect)
+{
+    //okay I'm redoing this
+    sf::Vector2f topLeft, topRight, botLeft, botRight;
+
+    topLeft.x = botLeft.x = getGlobalBounds().left;
+    topRight.x = botRight.x = getGlobalBounds().left + getGlobalBounds().width;
+    topLeft.y = topRight.y = getGlobalBounds().left;
+    botLeft.y = botRight.y = getGlobalBounds().top + getGlobalBounds().height;
+
+    //edge case: if two corners of player are in the bounds of the wall:
+    //move them out to the edge of the wall, set acceleration in target direction to 0
+
+    //top edge of player in wall
+    if (isWithin(rect, topLeft) && isWithin(rect, topRight)
+        || isWithin(rect, botLeft) && isWithin(rect, botRight))
+    {
+        vel.y = -vel.y;
+    }
+
+    //left edge of player in wall
+    if (isWithin(rect, topLeft) && isWithin(rect, topLeft)
+        || isWithin(rect, topRight) && isWithin(rect, botRight))
+    {
+        vel.x = -vel.x;
+    }
+}
+
+void Player::move(sf::FloatRect rect)
 {
     float neg = 0;
 
@@ -167,6 +207,9 @@ void Player::move()
             vel.y = neg * SPEED * 20 * sin(acos(vel.x / (SPEED * 20))); 
         }
     }
+
+    wallBounce(rect);
+
     pos += vel;
 }
 
@@ -214,35 +257,4 @@ int Player::hitEnemy(sf::CircleShape enemy)
         }
     }
     return 0;
-}
-
-bool Player::wallBounce(sf::RectangleShape rect)
-{
-    sf::Vector2f pointA, pointB;
-
-    //find points
-    if (isWithin(rect.getGlobalBounds(), getGlobalBounds().getPosition()))
-    {
-        pointA = getGlobalBounds().getPosition();
-    }
-
-    if (isWithin(rect.getGlobalBounds(), getGlobalBounds().getPosition()
-        + getGlobalBounds().getSize()))
-    {
-
-    }
-    //if corner case else edge case
-    //corner case:
-    //if(abs(pointA.y-pointB.y >= abs(pointA.x - pointB.x)))
-}
-
-//checks if a point is within the boundaries of a rectangle
-bool isWithin(sf::FloatRect rect, sf::Vector2f point)
-{
-    if (point.x > rect.getPosition().x && point.x < rect.getPosition().x + rect.getSize().x
-        && point.y > rect.getPosition().y && point.y < rect.getPosition().y + rect.getSize().y)
-    {
-        return true;
-    }
-    return false;
 }

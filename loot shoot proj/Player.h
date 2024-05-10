@@ -23,7 +23,7 @@ public:
 	void bulletUpdate();
 	//adjusts the player's location based on acceleration, which will offset everything
 	//else's position on the screen
-	void move();
+	void move(sf::FloatRect);
 	//draws private sfml members to the window
 	void draw(sf::RenderWindow&);
 	//returns true if any bullet is colliding with something
@@ -32,7 +32,7 @@ public:
 	//returns the damage of the bullet that is coliding with the enemy
 	int hitEnemy(sf::CircleShape);
 	//makes boing
-	bool wallBounce(sf::RectangleShape);
+	void wallBounce(sf::FloatRect);
 private:
 	const float SPEED = 0.5;
 	sf::Vector2f pos, vel;

@@ -48,10 +48,9 @@ int main()
             eClock.restart();
         }
 
-        if (!player.getGlobalBounds().intersects(circ.getGlobalBounds()))
-        {
-            player.move();
-        }
+
+        player.move(circ.getGlobalBounds());
+
 
         player.spin(window);
         if (enemy.isAlive())
