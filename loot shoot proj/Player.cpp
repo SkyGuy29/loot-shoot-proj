@@ -215,3 +215,34 @@ int Player::hitEnemy(sf::CircleShape enemy)
     }
     return 0;
 }
+
+bool Player::wallBounce(sf::RectangleShape rect)
+{
+    sf::Vector2f pointA, pointB;
+
+    //find points
+    if (isWithin(rect.getGlobalBounds(), getGlobalBounds().getPosition()))
+    {
+        pointA = getGlobalBounds().getPosition();
+    }
+
+    if (isWithin(rect.getGlobalBounds(), getGlobalBounds().getPosition()
+        + getGlobalBounds().getSize()))
+    {
+
+    }
+    //if corner case else edge case
+    //corner case:
+    //if(abs(pointA.y-pointB.y >= abs(pointA.x - pointB.x)))
+}
+
+//checks if a point is within the boundaries of a rectangle
+bool isWithin(sf::FloatRect rect, sf::Vector2f point)
+{
+    if (point.x > rect.getPosition().x && point.x < rect.getPosition().x + rect.getSize().x
+        && point.y > rect.getPosition().y && point.y < rect.getPosition().y + rect.getSize().y)
+    {
+        return true;
+    }
+    return false;
+}
