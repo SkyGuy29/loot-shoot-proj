@@ -32,8 +32,8 @@ public:
 	//returns the damage of the bullet that is coliding with the enemy
 	int hitEnemy(sf::CircleShape);
 private:
-	const float speed = 0.5;
-	sf::Vector2f pos, accel;
+	const float SPEED = 0.5;
+	sf::Vector2f pos, vel;
 	sf::RectangleShape gunLine;
 	//gun enum to determine what gun, comes later tho
 	std::vector<Bullet> bullets;

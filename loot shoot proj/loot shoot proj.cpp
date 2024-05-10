@@ -23,8 +23,10 @@ int main()
 
     circ.setRadius(100);
 
+    //game loop begins, runs every frame for the window
     while (window.isOpen())
     {
+        //allows window closing
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -32,12 +34,14 @@ int main()
                 window.close();
         }
 
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && pClock.getElapsedTime().asMilliseconds() >= 50)
+        //player shoots
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && pClock.getElapsedTime().asMilliseconds() >= 80)
         {
             player.shoot();
             pClock.restart();
         }
 
+        //enemy shoots
         if (enemy.isAlive() && eClock.getElapsedTime().asSeconds() >= 1)
         {
             enemy.shoot(player);
@@ -86,3 +90,17 @@ int main()
 
     return 0;
 }
+
+
+
+
+
+/*
+WALL COLLISION HAPPENS
+
+if()
+accel.x *= -1; 
+if()
+accel.y *= -1;
+
+*/

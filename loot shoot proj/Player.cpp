@@ -97,72 +97,77 @@ void Player::move()
 {
     float neg = 0;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && accel.y > speed * -20)
+    //moves player up
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && vel.y > SPEED * -20)
     {
-        accel.y -= speed;
+        vel.y -= SPEED;
     }
-    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W) && accel.y < 0)
+    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W) && vel.y < 0)
     {
-        accel.y += speed / 2;
-        if (accel.y > 0)
+        vel.y += SPEED / 2;
+        if (vel.y > 0)
         {
-            accel.y = 0;
+            vel.y = 0;
+        }
+    }
+    
+    //moves player left
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && vel.x > SPEED * -20)
+    {
+        vel.x -= SPEED;
+    }
+    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A) && vel.x < 0)
+    {
+        vel.x += SPEED / 2;
+        if (vel.x > 0)
+        {
+            vel.x = 0;
         }
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && accel.x > speed * -20)
+    //moves player down
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && vel.y < SPEED * 20)
     {
-        accel.x -= speed;
+        vel.y += SPEED;
     }
-    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A) && accel.x < 0)
+    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S) && vel.y > 0)
     {
-        accel.x += speed / 2;
-        if (accel.x > 0)
+        vel.y -= SPEED / 2;
+        if (vel.y < 0)
         {
-            accel.x = 0;
+            vel.y = 0;
         }
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && accel.y < speed * 20)
+    //moves player right
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && vel.x < SPEED * 20)
     {
-        accel.y += speed;
+        vel.x += SPEED;
     }
-    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S) && accel.y > 0)
+    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::D) && vel.x > 0)
     {
-        accel.y -= speed / 2;
-        if (accel.y < 0)
-        {
-            accel.y = 0;
-        }
-    }
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && accel.x < speed * 20)
-    {
-        accel.x += speed;
-    }
-    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::D) && accel.x > 0)
-    {
-        accel.x -= speed / 2;
-        if (accel.x < 0)
+        vel.x -= SPEED / 2;
+        if (vel.x < 0)
         {         
-            accel.x = 0;
+            vel.x = 0;
         }
     }
 
-    if(abs(hypot(accel.x, accel.y)) > speed * 20 && accel.x != 0 && accel.y != 0)
+    //truncates velocity values in diagonal directions, max speed will always be 5
+    if(abs(hypot(vel.x, vel.y)) > SPEED * 20 && vel.x != 0 && vel.y != 0)
     {
-        if (abs(accel.y) < abs(accel.x))
+        if (abs(vel.y) < abs(vel.x))
         {
-            neg = accel.x / abs(accel.x); //this will be either 1 or -1, which will apply back in the next line 
-            accel.x = neg * speed * 20 * cos(asin(accel.y / (speed * 20)));
+            neg = vel.x / abs(vel.x); //this will be either 1 or -1, which will apply back in the next line 
+            vel.x = neg * SPEED * 20 * cos(asin(vel.y / (SPEED * 20)));
         }
-        else if (abs(accel.x) < abs(accel.y))
+        else if (abs(vel.x) < abs(vel.y))
         {
-            neg = accel.y / abs(accel.y);
-            accel.y = neg * speed * 20 * sin(acos(accel.x / (speed * 20))); 
+            neg = vel.y / abs(vel.y);
+            vel.y = neg * SPEED * 20 * sin(acos(vel.x / (SPEED * 20))); 
         }
     }
-    pos += accel;
+    pos += vel;
 }
 
 void Player::draw(sf::RenderWindow& window)

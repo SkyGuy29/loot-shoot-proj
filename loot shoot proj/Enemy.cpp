@@ -77,6 +77,7 @@ void Enemy::draw(sf::RenderWindow& window)
 void Enemy::move()
 {
     float neg = 0;
+    const int SLOW = 4;
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && accel.y > speed * -20)
     {
@@ -84,7 +85,7 @@ void Enemy::move()
     }
     else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::W) && accel.y < 0)
     {
-        accel.y += speed / 2;
+        accel.y += speed / SLOW;
         if (accel.y > 0)
         {
             accel.y = 0;
@@ -97,7 +98,7 @@ void Enemy::move()
     }
     else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::A) && accel.x < 0)
     {
-        accel.x += speed / 2;
+        accel.x += speed / SLOW;
         if (accel.x > 0)
         {
             accel.x = 0;
@@ -110,7 +111,7 @@ void Enemy::move()
     }
     else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::S) && accel.y > 0)
     {
-        accel.y -= speed / 2;
+        accel.y -= speed / SLOW;
         if (accel.y < 0)
         {
             accel.y = 0;
@@ -123,7 +124,7 @@ void Enemy::move()
     }
     else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::D) && accel.x > 0)
     {
-        accel.x -= speed / 2;
+        accel.x -= speed / SLOW;
         if (accel.x < 0)
         {
             accel.x = 0;
